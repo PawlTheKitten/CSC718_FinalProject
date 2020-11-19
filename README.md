@@ -1,4 +1,4 @@
-# CSC718_FinalProject_Kim_Stryker
+# CSC718_FinalProject
 Final project page
 
 Ocean Conditions Neural Network
