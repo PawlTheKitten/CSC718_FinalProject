@@ -15,10 +15,18 @@ if __name__ == "__main__":
     file1 = open('myfile.txt', 'r') 
     Lines = file1.readlines() 
     
-    count = 0
-    # Strips the newline character 
+
+    # Iterate through a file .
     for line in Lines: 
         print("Line{}: {}".format(count, line.strip()))
     
-    # Split lines
-    print(word.split(',')) 
+        # Split lines based on , 
+        print(word.split(',')) 
+        
+
+    # while loop
+    while true:
+        print("do stuff");
+
+    
+    print(f'Completed all paths after {i} iterations.')
