@@ -12,7 +12,9 @@ def grab_station_historical(station, first, last, skip_years, folder):
             print(f'Downloading {url} and saving as {file}...')
             urllib.request.urlretrieve(url, file)
 
-# TODO: 
+# TODO: Write function to read the documents and collect the relevant fields for input and output data.
+
+
 
 if __name__ == "__main__": 
     station = 51002
