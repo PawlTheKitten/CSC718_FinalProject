@@ -1,37 +1,13 @@
-'''
-
-Author: Nicholas Stryker
-
-I used the book at nnfs.io to learn how to create Neural Networks and I used a significant amount
-of the code from the book. Copyright for book code below.
-
-The Python code/software in this book is contained under the following MIT License:
-
-Copyright © 2020 Sentdex, Kinsley Enterprises Inc., https://nnfs.io
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software
-and associated documentation files (the “Software”), to deal in the Software without restriction,
-including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
-and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial
-portions of the Software.
-'''
-
-import sys
 import numpy as np
-import matplotlib
 import nnfs
-from nnfs.datasets import spiral_data, sine_data  # See for code: https://gist.github.com/Sentdex/454cb20ec5acf0e76ee8ab8448e6266c
 import os
 import cv2
 import pickle
 import copy
-import data
-import cProfile
-import re
-import time
+import nnfs
+from nnfs.datasets import spiral_data, sine_data  # See for code: https://gist.github.com/Sentdex/454cb20ec5acf0e76ee8ab8448e6266c
+
+nnfs.init()
 
 
 # Dense layer
@@ -56,9 +32,6 @@ class Layer_Dense:
         self.inputs = inputs
         # Calculate output values from inputs, weights and biases
         self.output = np.dot(inputs, self.weights) + self.biases
-
-
-
 
     # Backward pass
     def backward(self, dvalues):
@@ -99,6 +72,7 @@ class Layer_Dense:
         self.weights = weights
         self.biases = biases
 
+
 # Dropout
 class Layer_Dropout:
 
@@ -130,12 +104,14 @@ class Layer_Dropout:
         # Gradient on values
         self.dinputs = dvalues * self.binary_mask
 
+
 # Input "layer"
 class Layer_Input:
 
     # Forward pass
     def forward(self, inputs, training):
         self.output = inputs
+
 
 # ReLU activation
 class Activation_ReLU:
@@ -159,6 +135,8 @@ class Activation_ReLU:
     # Calculate predictions for outputs
     def predictions(self, outputs):
         return outputs
+
+
 
 # Softmax activation
 class Activation_Softmax:
@@ -200,6 +178,8 @@ class Activation_Softmax:
     def predictions(self, outputs):
         return np.argmax(outputs, axis=1)
 
+
+
 # Sigmoid activation
 class Activation_Sigmoid:
 
@@ -219,6 +199,7 @@ class Activation_Sigmoid:
     def predictions(self, outputs):
         return (outputs > 0.5) * 1
 
+
 # Linear activation
 class Activation_Linear:
 
@@ -236,6 +217,8 @@ class Activation_Linear:
     # Calculate predictions for outputs
     def predictions(self, outputs):
         return outputs
+
+
 
 # SGD optimizer
 class Optimizer_SGD:
@@ -300,6 +283,7 @@ class Optimizer_SGD:
     def post_update_params(self):
         self.iterations += 1
 
+
 # Adagrad optimizer
 class Optimizer_Adagrad:
 
@@ -343,6 +327,7 @@ class Optimizer_Adagrad:
     # Call once after any parameter updates
     def post_update_params(self):
         self.iterations += 1
+
 
 # RMSprop optimizer
 class Optimizer_RMSprop:
@@ -391,6 +376,7 @@ class Optimizer_RMSprop:
     # Call once after any parameter updates
     def post_update_params(self):
         self.iterations += 1
+
 
 # Adam optimizer
 class Optimizer_Adam:
@@ -463,6 +449,8 @@ class Optimizer_Adam:
     # Call once after any parameter updates
     def post_update_params(self):
         self.iterations += 1
+
+
 
 # Common loss class
 class Loss:
@@ -547,6 +535,7 @@ class Loss:
         self.accumulated_sum = 0
         self.accumulated_count = 0
 
+
 # Cross-entropy loss
 class Loss_CategoricalCrossentropy(Loss):
 
@@ -598,6 +587,8 @@ class Loss_CategoricalCrossentropy(Loss):
         # Normalize gradient
         self.dinputs = self.dinputs / samples
 
+
+
 # Softmax classifier - combined Softmax activation
 # and cross-entropy loss for faster backward step
 class Activation_Softmax_Loss_CategoricalCrossentropy():
@@ -619,6 +610,7 @@ class Activation_Softmax_Loss_CategoricalCrossentropy():
         self.dinputs[range(samples), y_true] -= 1
         # Normalize gradient
         self.dinputs = self.dinputs / samples
+
 
 # Binary cross-entropy loss
 class Loss_BinaryCrossentropy(Loss):
@@ -658,6 +650,7 @@ class Loss_BinaryCrossentropy(Loss):
         # Normalize gradient
         self.dinputs = self.dinputs / samples
 
+
 # Mean Squared Error loss
 class Loss_MeanSquaredError(Loss):  # L2 loss
 
@@ -684,6 +677,7 @@ class Loss_MeanSquaredError(Loss):  # L2 loss
         # Normalize gradient
         self.dinputs = self.dinputs / samples
 
+
 # Mean Absolute Error loss
 class Loss_MeanAbsoluteError(Loss):  # L1 loss
 
@@ -709,6 +703,7 @@ class Loss_MeanAbsoluteError(Loss):  # L1 loss
         self.dinputs = np.sign(y_true - dvalues) / outputs
         # Normalize gradient
         self.dinputs = self.dinputs / samples
+
 
 # Common accuracy class
 class Accuracy:
@@ -744,6 +739,8 @@ class Accuracy:
         self.accumulated_sum = 0
         self.accumulated_count = 0
 
+
+
 # Accuracy calculation for classification model
 class Accuracy_Categorical(Accuracy):
 
@@ -756,6 +753,7 @@ class Accuracy_Categorical(Accuracy):
         if len(y.shape) == 2:
             y = np.argmax(y, axis=1)
         return predictions == y
+
 
 # Accuracy calculation for regression model
 class Accuracy_Regression(Accuracy):
@@ -773,6 +771,7 @@ class Accuracy_Regression(Accuracy):
     # Compares predictions to the ground truth values
     def compare(self, predictions, y):
         return np.absolute(predictions - y) < self.precision
+
 
 # Model class
 class Model:
@@ -885,8 +884,7 @@ class Model:
         for epoch in range(1, epochs+1):
 
             # Print epoch number
-            if not epoch % print_every:
-                print(f'epoch: {epoch}')
+            print(f'epoch: {epoch}')
 
             # Reset accumulated values in loss and accuracy objects
             self.loss.new_pass()
@@ -932,7 +930,7 @@ class Model:
 
 
                 # Print a summary
-                if not epoch % print_every:
+                if not step % print_every or step == train_steps - 1:
                     print(f'step: {step}, ' +
                           f'acc: {accuracy:.3f}, ' +
                           f'loss: {loss:.3f} (' +
@@ -947,13 +945,12 @@ class Model:
             epoch_loss = epoch_data_loss + epoch_regularization_loss
             epoch_accuracy = self.accuracy.calculate_accumulated()
 
-            if not epoch % print_every:
-                print(f'training, ' +
-                    f'acc: {epoch_accuracy:.3f}, ' +
-                    f'loss: {epoch_loss:.3f} (' +
-                    f'data_loss: {epoch_data_loss:.3f}, ' +
-                    f'reg_loss: {epoch_regularization_loss:.3f}), ' +
-                    f'lr: {self.optimizer.current_learning_rate}')
+            print(f'training, ' +
+                  f'acc: {epoch_accuracy:.3f}, ' +
+                  f'loss: {epoch_loss:.3f} (' +
+                  f'data_loss: {epoch_data_loss:.3f}, ' +
+                  f'reg_loss: {epoch_regularization_loss:.3f}), ' +
+                  f'lr: {self.optimizer.current_learning_rate}')
 
             # If there is the validation data
             if validation_data is not None:
@@ -1190,71 +1187,67 @@ class Model:
         # Return a model
         return model
 
-def WVHT_NN():
-    
-    station = 51003
-    folder = f'D:/SCHOOL/Fall2020/CSC718/project/CSC718_FinalProject/data/training_data/noaa{station}'
 
-    # # Get the data
-    train_data = data.Data(folder)
-    # # data.ingest_file_full()
-    train_data.ingest_file_full('51003h2010.txt')
-    
-    X = train_data.X
-    y = train_data.Y
-    # # Create dataset
+# Loads a MNIST dataset
+def load_mnist_dataset(dataset, path):
 
-    #X, y = sine_data(samples=1000)
+    # Scan all the directories and create a list of labels
+    labels = os.listdir(os.path.join(path, dataset))
 
-    print('[+] Instantiating Neural Network: ')
-    # Instantiate the model
-    model = Model()
+    # Create lists for samples and labels
+    X = []
+    y = []
 
-    print('[+] Building layers: ')
-    # Add layers
-    model.add(Layer_Dense(4, 64, weight_regularizer_l1=0, weight_regularizer_l2=0,
-                                 bias_regularizer_l1=0, bias_regularizer_l2=0))
-    model.add(Activation_ReLU())
-    model.add(Layer_Dense(64, 64))
-    model.add(Activation_ReLU())
-    model.add(Layer_Dense(64, 1))
-    model.add(Activation_Linear())
-    # Set loss and optimizer objects
-    model.set(
-        loss=Loss_MeanSquaredError(),
-        optimizer=Optimizer_Adam(learning_rate=0.005, decay=1e-3),
-        accuracy=Accuracy_Regression()
-    )
+    # For each label folder
+    for label in labels:
+        # And for each image in given folder
+        for file in os.listdir(os.path.join(path, dataset, label)):
+            # Read the image
+            image = cv2.imread(
+                        os.path.join(path, dataset, label, file),
+                        cv2.IMREAD_UNCHANGED)
+
+            # And append it and a label to the lists
+            X.append(image)
+            y.append(label)
+
+    # Convert the data to proper numpy arrays and return
+    return np.array(X), np.array(y).astype('uint8')
 
 
-    print('[+] Finalizing model: ')
-    # Finalize the model
-    model.finalize()
+# MNIST dataset (train + test)
+def create_data_mnist(path):
 
-    print('[+] Ingesting evaluation data: ')
-    test_data = data.Data(folder)
-    test_data.ingest_file_full('51003h2011.txt')
-    # X_test, y_test = spiral_data(samples=100, classes=3)
-    X_test = test_data.X
-    y_test = test_data.Y
+    # Load both sets separately
+    X, y = load_mnist_dataset('train', path)
+    X_test, y_test = load_mnist_dataset('test', path)
 
-
-    print('[+] Begin training: ')
-    # Train the model
-    model.train(X, y, epochs=1000, print_every=500)
-
-if __name__ == "__main__": 
-    print("Version Information:")
-    print (f"   Python: {sys.version}")
-    print (f"   numpy: {np.__version__}")
-    print (f"   Matplotlib: {matplotlib.__version__}")
-
-    #startTime = time.time()
-    #WVHT_NN()
-    #executionTime = (time.time() - startTime)
-    #print('Execution time in seconds: ' + str(executionTime))
-    
-    cProfile.run('WVHT_NN()')
+    # And return all the data
+    return X, y, X_test, y_test
 
 
-    
+# Create dataset
+X, y = sine_data()
+
+# Instantiate the model
+model = Model()
+
+# Add layers
+model.add(Layer_Dense(1, 64))
+model.add(Activation_ReLU())
+model.add(Layer_Dense(64, 64))
+model.add(Activation_ReLU())
+model.add(Layer_Dense(64, 1))
+model.add(Activation_Linear())
+# Set loss and optimizer objects
+model.set(
+    loss=Loss_MeanSquaredError(),
+    optimizer=Optimizer_Adam(learning_rate=0.005, decay=1e-3),
+    accuracy=Accuracy_Regression()
+)
+
+# Finalize the model
+model.finalize()
+
+# Train the model
+model.train(X, y, epochs=10000, print_every=100)
