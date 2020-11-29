@@ -18,7 +18,9 @@ class Data:
 
     def __init__(self, folder='.'):
         self.folder = folder
-        self.X = np.array([[0,0,0,0]])
+        #self.X = np.array([[0,0,0,0]])
+        self.X = np.array([[0,0]])
+        
         self.Y = np.array([[0]])
         self.verybad = 0
         self.i = 0
@@ -107,8 +109,9 @@ class Data:
                     delta_WD = abs(WD_array[j-2] - WD_array[j-3]) + abs(WD_array[j-3] - WD_array[j-4]) + abs(WD_array[j-4] - WD_array[j-5])
                     #print(f'delta_WD = {WD_array[i-2]} - {WD_array[i-3]} + {WD_array[i-3]} - {WD_array[i-4]} + {WD_array[i-4]} - {WD_array[i-5]} = {delta_WD}')
                     #self.X[self.i].append(delta_WD)
-                    self.X = np.append(self.X, [[float(WD), float(WSPD), float(GST), float(delta_WD)]], axis=0)
-
+                    #self.X = np.append(self.X, [[float(WD), float(WSPD), float(GST), float(delta_WD)]], axis=0)
+                    self.X = np.append(self.X, [[float(WD), float(WVHT)]], axis=0)
+                    
                     if WSPD == 99.0 or GST == 99.0:
                         self.verybad+=1
 
