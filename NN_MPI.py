@@ -1223,7 +1223,7 @@ if __name__ == "__main__":
 
     print(f'[+] P{rank} Building layers: ')
     # Add layers
-    model.add(Layer_Dense(2, 64))
+    model.add(Layer_Dense(5, 64))
     model.add(Activation_ReLU())
     model.add(Layer_Dense(64, 64))
     model.add(Activation_ReLU())

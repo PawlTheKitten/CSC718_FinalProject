@@ -1,0 +1,14 @@
+Version Information:
+   Python: 3.8.6 (default, Sep 25 2020, 09:36:53) 
+[GCC 10.2.0]
+   numpy: 1.19.1
+   Matplotlib: 3.2.2
+[+] Ingesting file: 51003h2010.txt
+Finished ingesting information:
+[+] Instantiating Neural Network: 
+[+] Building layers: 
+[+] Finalizing model: 
+[+] Ingesting evaluation data: 
+[+] Ingesting file: 51003h2011.txt
+Finished ingesting information:
+[+] Begin training: 

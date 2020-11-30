@@ -1209,7 +1209,7 @@ def WVHT_NN():
 
     print('[+] Building layers: ')
     # Add layers
-    model.add(Layer_Dense(2, 64))
+    model.add(Layer_Dense(5, 64))
     model.add(Activation_ReLU())
     model.add(Layer_Dense(64, 64))
     model.add(Activation_ReLU())

@@ -18,8 +18,8 @@ class Data:
 
     def __init__(self, folder='.'):
         self.folder = folder
-        #self.X = np.array([[0,0,0,0]])
-        self.X = np.array([[0,0]])
+        self.X = np.array([[0,0,0,0,0]])
+        #self.X = np.array([[0,0]])
         
         self.Y = np.array([[0]])
         self.verybad = 0
@@ -109,8 +109,8 @@ class Data:
                     delta_WD = abs(WD_array[j-2] - WD_array[j-3]) + abs(WD_array[j-3] - WD_array[j-4]) + abs(WD_array[j-4] - WD_array[j-5])
                     #print(f'delta_WD = {WD_array[i-2]} - {WD_array[i-3]} + {WD_array[i-3]} - {WD_array[i-4]} + {WD_array[i-4]} - {WD_array[i-5]} = {delta_WD}')
                     #self.X[self.i].append(delta_WD)
-                    #self.X = np.append(self.X, [[float(WD), float(WSPD), float(GST), float(delta_WD)]], axis=0)
-                    self.X = np.append(self.X, [[float(WD), float(WVHT)]], axis=0)
+                    self.X = np.append(self.X, [[float(WD), float(WSPD), float(GST), float(delta_WD), float(WVHT)]], axis=0)
+                    #self.X = np.append(self.X, [[float(WD), float(WVHT)]], axis=0)
                     
                     if WSPD == 99.0 or GST == 99.0:
                         self.verybad+=1
@@ -146,20 +146,3 @@ class Data:
             print(max(self.X))
             print('Y:')
             print(max(self.Y))
-
-if __name__ == "__main__": 
-    station = 51003
-    folder = f'./data/training_data/noaa{station}'
-    # first_year = 1984
-    # last_year = 2019
-    # skip_years = ['2014']
-
-    # if not os.path.exists(folder):
-    #     os.makedirs(folder)
-    # grab_station_historical(station, first_year, last_year + 1, skip_years, folder)
-
-    data = Data(folder)
-    #data.ingest_folder_full()
-    data.ingest_file_full('51003h2010.txt')
-    #data.print_data('max')
-    
