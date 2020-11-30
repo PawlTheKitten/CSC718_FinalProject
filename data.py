@@ -109,8 +109,9 @@ class Data:
                     delta_WD = abs(WD_array[j-2] - WD_array[j-3]) + abs(WD_array[j-3] - WD_array[j-4]) + abs(WD_array[j-4] - WD_array[j-5])
                     #print(f'delta_WD = {WD_array[i-2]} - {WD_array[i-3]} + {WD_array[i-3]} - {WD_array[i-4]} + {WD_array[i-4]} - {WD_array[i-5]} = {delta_WD}')
                     #self.X[self.i].append(delta_WD)
-                    #self.X = np.append(self.X, [[float(WD), float(WSPD), float(GST), float(delta_WD)]], axis=0)
-                    self.X = np.append(self.X, [[float(WD), float(WVHT)]], axis=0)
+                    self.X = np.append(self.X, [[float(WD), float(WSPD), float(GST), float(delta_WD)]], axis=0)
+                    # UNCOMMENT this to change what data is added to the model
+                    #self.X = np.append(self.X, [[float(WD), float(WVHT)]], axis=0)
                     
                     if WSPD == 99.0 or GST == 99.0:
                         self.verybad+=1
@@ -129,9 +130,9 @@ class Data:
         #print(f'[+][+] Ingested {j-start} lines except for {bad} bad lines')
         self.X = np.delete(self.X, 0, 0)
         self.Y = np.delete(self.Y, 0, 0)
-        print('Finished ingesting information:')
-        print('   WD.    WSPD    GST  d_WSPD   WVHT ')
-        print(f'{np.c_[self.X, self.Y]}')
+        #print('Finished ingesting information:')
+        #print('   WD.    WSPD    GST  d_WSPD   WVHT ')
+        #print(f'{np.c_[self.X, self.Y]}')
 
     def print_data(self, function='all'):
 
