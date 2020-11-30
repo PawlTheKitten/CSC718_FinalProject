@@ -18,8 +18,8 @@ class Data:
 
     def __init__(self, folder='.'):
         self.folder = folder
-        #self.X = np.array([[0,0,0,0]])
-        self.X = np.array([[0,0]])
+        self.X = np.array([[0,0,0,0]])
+        #self.X = np.array([[0,0]])
         
         self.Y = np.array([[0]])
         self.verybad = 0
@@ -80,7 +80,7 @@ class Data:
                         WSPD_i = c
                     c+=1
 
-                print(f'[+][+] Found inputs: WVHT_i = {WVHT_i} WD_i = {WD_i} GST_i = {GST_i} WSPD_i = {WSPD_i}')
+                #print(f'[+][+] Found inputs: WVHT_i = {WVHT_i} WD_i = {WD_i} GST_i = {GST_i} WSPD_i = {WSPD_i}')
 
             # Start at the 5th column because 
             start = 5
@@ -110,7 +110,10 @@ class Data:
                     #print(f'delta_WD = {WD_array[i-2]} - {WD_array[i-3]} + {WD_array[i-3]} - {WD_array[i-4]} + {WD_array[i-4]} - {WD_array[i-5]} = {delta_WD}')
                     #self.X[self.i].append(delta_WD)
                     self.X = np.append(self.X, [[float(WD), float(WSPD), float(GST), float(delta_WD)]], axis=0)
+<<<<<<< HEAD
                     # UNCOMMENT this to change what data is added to the model
+=======
+>>>>>>> de5df1034ae0114fe872893e6a13289ff1be7983
                     #self.X = np.append(self.X, [[float(WD), float(WVHT)]], axis=0)
                     
                     if WSPD == 99.0 or GST == 99.0:
@@ -130,7 +133,11 @@ class Data:
         #print(f'[+][+] Ingested {j-start} lines except for {bad} bad lines')
         self.X = np.delete(self.X, 0, 0)
         self.Y = np.delete(self.Y, 0, 0)
+<<<<<<< HEAD
         #print('Finished ingesting information:')
+=======
+        print('Finished ingesting information:')
+>>>>>>> de5df1034ae0114fe872893e6a13289ff1be7983
         #print('   WD.    WSPD    GST  d_WSPD   WVHT ')
         #print(f'{np.c_[self.X, self.Y]}')
 

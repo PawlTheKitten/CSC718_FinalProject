@@ -22,17 +22,17 @@ portions of the Software.
 import sys
 import numpy as np
 import matplotlib
-import nnfs
-from nnfs.datasets import spiral_data, sine_data  # See for code: https://gist.github.com/Sentdex/454cb20ec5acf0e76ee8ab8448e6266c
+#import nnfs
+#from nnfs.datasets import spiral_data, sine_data  # See for code: https://gist.github.com/Sentdex/454cb20ec5acf0e76ee8ab8448e6266c
 import os
-import cv2
+#import cv2
 import pickle
 import copy
 import data
 import cProfile
 import re
 import time
-
+from mpi4py import MPI
 
 # Dense layer
 class Layer_Dense:
@@ -783,6 +783,11 @@ class Model:
         # Softmax classifier's output object
         self.softmax_classifier_output = None
 
+    def MPI_init(self, rank, name, world):
+        self.rank = rank
+        self.name = name
+        self.world = world
+
     # Add objects to the model
     def add(self, layer):
         self.layers.append(layer)
@@ -930,16 +935,6 @@ class Model:
                     self.optimizer.update_params(layer)
                 self.optimizer.post_update_params()
 
-
-                # Print a summary
-                if not epoch % print_every:
-                    print(f'step: {step}, ' +
-                          f'acc: {accuracy:.3f}, ' +
-                          f'loss: {loss:.3f} (' +
-                          f'data_loss: {data_loss:.3f}, ' +
-                          f'reg_loss: {regularization_loss:.3f}), ' +
-                          f'lr: {self.optimizer.current_learning_rate}')
-
             # Get and print epoch loss and accuracy
             epoch_data_loss, epoch_regularization_loss = \
                 self.loss.calculate_accumulated(
@@ -948,7 +943,8 @@ class Model:
             epoch_accuracy = self.accuracy.calculate_accumulated()
 
             if not epoch % print_every:
-                print(f'training, ' +
+                print(f'Results for process {self.rank} of {self.world} on {self.name} for epoch {epoch}')
+                print(f'P {rank} training, ' +
                     f'acc: {epoch_accuracy:.3f}, ' +
                     f'loss: {epoch_loss:.3f} (' +
                     f'data_loss: {epoch_data_loss:.3f}, ' +
@@ -1017,10 +1013,12 @@ class Model:
         validation_accuracy = self.accuracy.calculate_accumulated()
 
         # Print a summary
-        print(f'validation, ' +
+        print('============================================================================')
+        print(f'Validation results for process {self.rank} of {self.world} on {self.name}')
+        print(f'P {rank} validation, ' +
               f'acc: {validation_accuracy:.3f}, ' +
               f'loss: {validation_loss:.3f}')
-
+        print('============================================================================')
     # Predicts on the samples
     def predict(self, X, *, batch_size=None):
 
@@ -1193,7 +1191,7 @@ class Model:
 def WVHT_NN():
     
     station = 51003
-    folder = f'D:/SCHOOL/Fall2020/CSC718/project/CSC718_FinalProject/data/training_data/noaa{station}'
+    folder = f'/home/kali/Desktop/FinalProject/CSC718_FinalProject/data/training_data/noaa{station}'
 
     # # Get the data
     train_data = data.Data(folder)
@@ -1212,7 +1210,7 @@ def WVHT_NN():
 
     print('[+] Building layers: ')
     # Add layers
-    model.add(Layer_Dense(2, 64))
+    model.add(Layer_Dense(4, 64))
     model.add(Activation_ReLU())
     model.add(Layer_Dense(64, 64))
     model.add(Activation_ReLU())
@@ -1243,17 +1241,72 @@ def WVHT_NN():
     model.train(X, y, epochs=10000, print_every=1000)
 
 if __name__ == "__main__": 
-    print("Version Information:")
-    print (f"   Python: {sys.version}")
-    print (f"   numpy: {np.__version__}")
-    print (f"   Matplotlib: {matplotlib.__version__}")
+    #print("Version Information:")
+    #print (f"   Python: {sys.version}")
+    #print (f"   numpy: {np.__version__}")
+    #print (f"   Matplotlib: {matplotlib.__version__}")
 
     startTime = time.time()
-    WVHT_NN()
-    executionTime = (time.time() - startTime)
-    print('Execution time in seconds: ' + str(executionTime))
+    #WVHT_NN()
     
     #cProfile.run('WVHT_NN()')
 
-
+    comm = MPI.COMM_WORLD
+    rank = comm.Get_rank()
+    size = comm.Get_size()
+    name = MPI.Get_processor_name()
     
+    # Generate a data set for each processor
+        
+    station = 51003
+    folder = f'/home/kali/Desktop/FinalProject/CSC718_FinalProject/data/training_data/noaa{station}'
+
+    # # Get the data
+    train_data = data.Data(folder)
+    # # data.ingest_file_full()
+    train_data.ingest_file_full(f'51003h201{rank}.txt')
+    
+    learning_rates = [0.005, .09, .001, .0009]
+    decays = [1e-2, .02, 1e-5, 1e-6]
+
+    X = train_data.X
+    y = train_data.Y
+    # # Create dataset
+
+    print(f'[+] P{rank} Ingesting evaluation data: ')
+    test_data = data.Data(folder)
+    test_data.ingest_file_full('51003h1991.txt')
+    # X_test, y_test = spiral_data(samples=100, classes=3)
+    X_test = test_data.X
+    y_test = test_data.Y
+
+    #X, y = sine_data(samples=1000)
+
+    print(f'[+] P{rank} Instantiating NN learning_rate = {learning_rates[rank]} decay = {decays[rank]}')
+    # Instantiate the model
+    model = Model()
+
+    print(f'[+] P{rank} Building layers: ')
+    # Add layers
+    model.add(Layer_Dense(4, 64))
+    model.add(Activation_ReLU())
+    model.add(Layer_Dense(64, 64))
+    model.add(Activation_ReLU())
+    model.add(Layer_Dense(64, 1))
+    model.add(Activation_Linear())
+    # Set loss and optimizer objects
+    model.set(
+        loss=Loss_MeanSquaredError(),
+        optimizer=Optimizer_Adam(learning_rate=learning_rates[rank], decay=decays[rank]),
+        accuracy=Accuracy_Regression()
+    )
+    model.finalize()
+
+    print(f'[+] P{rank} training: ')
+    # Train the model
+    model.MPI_init(rank=rank, world=size, name=name)
+    model.train(X, y, epochs=10000, print_every=1000)
+    model.evaluate(X_test, y_test)
+
+    executionTime = (time.time() - startTime)
+    print(f'P:{rank} Execution time in seconds: ' + str(executionTime))
