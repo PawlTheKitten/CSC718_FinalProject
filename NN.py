@@ -22,10 +22,7 @@ portions of the Software.
 import sys
 import numpy as np
 import matplotlib
-import nnfs
-from nnfs.datasets import spiral_data, sine_data  # See for code: https://gist.github.com/Sentdex/454cb20ec5acf0e76ee8ab8448e6266c
 import os
-import cv2
 import pickle
 import copy
 import data
@@ -1193,7 +1190,7 @@ class Model:
 def WVHT_NN():
     
     station = 51003
-    folder = f'D:/SCHOOL/Fall2020/CSC718/project/CSC718_FinalProject/data/training_data/noaa{station}'
+    folder = f'./data/training_data/noaa{station}'
 
     # # Get the data
     train_data = data.Data(folder)
@@ -1241,6 +1238,7 @@ def WVHT_NN():
     print('[+] Begin training: ')
     # Train the model
     model.train(X, y, epochs=10000, print_every=1000)
+    model.evaluate(X_test, y_test)
 
 if __name__ == "__main__": 
     print("Version Information:")

@@ -1,0 +1,46 @@
+Version Information:
+   Python: 3.8.6 (default, Sep 25 2020, 09:36:53) 
+[GCC 10.2.0]
+   numpy: 1.19.1
+   Matplotlib: 3.2.2
+[+] Ingesting file: 51003h2010.txt
+Finished ingesting information:
+[+] Instantiating Neural Network: 
+[+] Building layers: 
+[+] Finalizing model: 
+[+] Ingesting evaluation data: 
+[+] Ingesting file: 51003h2011.txt
+Finished ingesting information:
+[+] Begin training: 
+epoch: 1000
+step: 0, acc: 0.004, loss: 0.232 (data_loss: 0.232, reg_loss: 0.000), lr: 0.0002501250625312656
+training, acc: 0.004, loss: 0.232 (data_loss: 0.232, reg_loss: 0.000), lr: 0.0002501250625312656
+epoch: 2000
+step: 0, acc: 0.004, loss: 0.210 (data_loss: 0.210, reg_loss: 0.000), lr: 0.00016672224074691563
+training, acc: 0.004, loss: 0.210 (data_loss: 0.210, reg_loss: 0.000), lr: 0.00016672224074691563
+epoch: 3000
+step: 0, acc: 0.004, loss: 0.210 (data_loss: 0.210, reg_loss: 0.000), lr: 0.00012503125781445363
+training, acc: 0.004, loss: 0.210 (data_loss: 0.210, reg_loss: 0.000), lr: 0.00012503125781445363
+epoch: 4000
+step: 0, acc: 0.004, loss: 0.209 (data_loss: 0.209, reg_loss: 0.000), lr: 0.00010002000400080015
+training, acc: 0.004, loss: 0.209 (data_loss: 0.209, reg_loss: 0.000), lr: 0.00010002000400080015
+epoch: 5000
+step: 0, acc: 0.005, loss: 0.208 (data_loss: 0.208, reg_loss: 0.000), lr: 8.334722453742292e-05
+training, acc: 0.005, loss: 0.208 (data_loss: 0.208, reg_loss: 0.000), lr: 8.334722453742292e-05
+epoch: 6000
+step: 0, acc: 0.005, loss: 0.208 (data_loss: 0.208, reg_loss: 0.000), lr: 7.143877696813831e-05
+training, acc: 0.005, loss: 0.208 (data_loss: 0.208, reg_loss: 0.000), lr: 7.143877696813831e-05
+epoch: 7000
+step: 0, acc: 0.004, loss: 0.207 (data_loss: 0.207, reg_loss: 0.000), lr: 6.250781347668458e-05
+training, acc: 0.004, loss: 0.207 (data_loss: 0.207, reg_loss: 0.000), lr: 6.250781347668458e-05
+epoch: 8000
+step: 0, acc: 0.005, loss: 0.207 (data_loss: 0.207, reg_loss: 0.000), lr: 5.5561729081009e-05
+training, acc: 0.005, loss: 0.207 (data_loss: 0.207, reg_loss: 0.000), lr: 5.5561729081009e-05
+epoch: 9000
+step: 0, acc: 0.003, loss: 0.206 (data_loss: 0.206, reg_loss: 0.000), lr: 5.000500050005001e-05
+training, acc: 0.003, loss: 0.206 (data_loss: 0.206, reg_loss: 0.000), lr: 5.000500050005001e-05
+epoch: 10000
+step: 0, acc: 0.005, loss: 0.205 (data_loss: 0.205, reg_loss: 0.000), lr: 4.545867806164197e-05
+training, acc: 0.005, loss: 0.205 (data_loss: 0.205, reg_loss: 0.000), lr: 4.545867806164197e-05
+validation, acc: 0.003, loss: 0.582
+Execution time in seconds: 1043.8482809066772

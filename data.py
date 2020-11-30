@@ -18,8 +18,8 @@ class Data:
 
     def __init__(self, folder='.'):
         self.folder = folder
-        self.X = np.array([[0,0,0,0]])
-        #self.X = np.array([[0,0]])
+        #self.X = np.array([[0,0,0,0]])
+        self.X = np.array([[0,0]])
         
         self.Y = np.array([[0]])
         self.verybad = 0
@@ -109,12 +109,8 @@ class Data:
                     delta_WD = abs(WD_array[j-2] - WD_array[j-3]) + abs(WD_array[j-3] - WD_array[j-4]) + abs(WD_array[j-4] - WD_array[j-5])
                     #print(f'delta_WD = {WD_array[i-2]} - {WD_array[i-3]} + {WD_array[i-3]} - {WD_array[i-4]} + {WD_array[i-4]} - {WD_array[i-5]} = {delta_WD}')
                     #self.X[self.i].append(delta_WD)
-                    self.X = np.append(self.X, [[float(WD), float(WSPD), float(GST), float(delta_WD)]], axis=0)
-<<<<<<< HEAD
-                    # UNCOMMENT this to change what data is added to the model
-=======
->>>>>>> de5df1034ae0114fe872893e6a13289ff1be7983
-                    #self.X = np.append(self.X, [[float(WD), float(WVHT)]], axis=0)
+                    #self.X = np.append(self.X, [[float(WD), float(WSPD), float(GST), float(delta_WD)]], axis=0)
+                    self.X = np.append(self.X, [[float(WD), float(WVHT)]], axis=0)
                     
                     if WSPD == 99.0 or GST == 99.0:
                         self.verybad+=1
@@ -133,11 +129,7 @@ class Data:
         #print(f'[+][+] Ingested {j-start} lines except for {bad} bad lines')
         self.X = np.delete(self.X, 0, 0)
         self.Y = np.delete(self.Y, 0, 0)
-<<<<<<< HEAD
-        #print('Finished ingesting information:')
-=======
         print('Finished ingesting information:')
->>>>>>> de5df1034ae0114fe872893e6a13289ff1be7983
         #print('   WD.    WSPD    GST  d_WSPD   WVHT ')
         #print(f'{np.c_[self.X, self.Y]}')
 
@@ -157,7 +149,7 @@ class Data:
 
 if __name__ == "__main__": 
     station = 51003
-    folder = f'D:/SCHOOL/Fall2020/CSC718/project/CSC718_FinalProject/data/training_data/noaa{station}'
+    folder = f'./data/training_data/noaa{station}'
     # first_year = 1984
     # last_year = 2019
     # skip_years = ['2014']

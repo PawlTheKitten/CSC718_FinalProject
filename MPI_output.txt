@@ -41,7 +41,7 @@ P 0 training, acc: 0.999, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 4
 Validation results for process 0 of 4 on kali
 P 0 validation, acc: 0.997, loss: 0.000
 ============================================================================
-P:0 Execution time in seconds: 1455.5290491580963
+P:0 Execution time in seconds: ..5290491580963
 [+] Ingesting file: 51003h2011.txt
 Finished ingesting information:
 [+] P1 Ingesting evaluation data: 

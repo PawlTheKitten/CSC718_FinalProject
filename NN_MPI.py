@@ -744,19 +744,6 @@ class Accuracy:
         self.accumulated_sum = 0
         self.accumulated_count = 0
 
-# Accuracy calculation for classification model
-class Accuracy_Categorical(Accuracy):
-
-    # No initialization is needed
-    def init(self, y):
-        pass
-
-    # Compares predictions to the ground truth values
-    def compare(self, predictions, y):
-        if len(y.shape) == 2:
-            y = np.argmax(y, axis=1)
-        return predictions == y
-
 # Accuracy calculation for regression model
 class Accuracy_Regression(Accuracy):
 
@@ -1188,58 +1175,6 @@ class Model:
         # Return a model
         return model
 
-def WVHT_NN():
-    
-    station = 51003
-    folder = f'/home/kali/Desktop/FinalProject/CSC718_FinalProject/data/training_data/noaa{station}'
-
-    # # Get the data
-    train_data = data.Data(folder)
-    # # data.ingest_file_full()
-    train_data.ingest_file_full('51003h2010.txt')
-    
-    X = train_data.X
-    y = train_data.Y
-    # # Create dataset
-
-    #X, y = sine_data(samples=1000)
-
-    print('[+] Instantiating Neural Network: ')
-    # Instantiate the model
-    model = Model()
-
-    print('[+] Building layers: ')
-    # Add layers
-    model.add(Layer_Dense(4, 64))
-    model.add(Activation_ReLU())
-    model.add(Layer_Dense(64, 64))
-    model.add(Activation_ReLU())
-    model.add(Layer_Dense(64, 1))
-    model.add(Activation_Linear())
-    # Set loss and optimizer objects
-    model.set(
-        loss=Loss_MeanSquaredError(),
-        optimizer=Optimizer_Adam(learning_rate=0.0005, decay=1e-3),
-        accuracy=Accuracy_Regression()
-    )
-
-
-    print('[+] Finalizing model: ')
-    # Finalize the model
-    model.finalize()
-
-    print('[+] Ingesting evaluation data: ')
-    test_data = data.Data(folder)
-    test_data.ingest_file_full('51003h2011.txt')
-    # X_test, y_test = spiral_data(samples=100, classes=3)
-    X_test = test_data.X
-    y_test = test_data.Y
-
-
-    print('[+] Begin training: ')
-    # Train the model
-    model.train(X, y, epochs=10000, print_every=1000)
-
 if __name__ == "__main__": 
     #print("Version Information:")
     #print (f"   Python: {sys.version}")
@@ -1288,7 +1223,7 @@ if __name__ == "__main__":
 
     print(f'[+] P{rank} Building layers: ')
     # Add layers
-    model.add(Layer_Dense(4, 64))
+    model.add(Layer_Dense(2, 64))
     model.add(Activation_ReLU())
     model.add(Layer_Dense(64, 64))
     model.add(Activation_ReLU())
