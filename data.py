@@ -80,7 +80,7 @@ class Data:
                         WSPD_i = c
                     c+=1
 
-                print(f'[+][+] Found inputs: WVHT_i = {WVHT_i} WD_i = {WD_i} GST_i = {GST_i} WSPD_i = {WSPD_i}')
+                #print(f'[+][+] Found inputs: WVHT_i = {WVHT_i} WD_i = {WD_i} GST_i = {GST_i} WSPD_i = {WSPD_i}')
 
             # Start at the 5th column because 
             start = 5
@@ -130,8 +130,8 @@ class Data:
         self.X = np.delete(self.X, 0, 0)
         self.Y = np.delete(self.Y, 0, 0)
         print('Finished ingesting information:')
-        print('   WD.    WSPD    GST  d_WSPD   WVHT ')
-        print(f'{np.c_[self.X, self.Y]}')
+        #print('   WD.    WSPD    GST  d_WSPD   WVHT ')
+        #print(f'{np.c_[self.X, self.Y]}')
 
     def print_data(self, function='all'):
 

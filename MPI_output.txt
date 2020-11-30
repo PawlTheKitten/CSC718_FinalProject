@@ -1,0 +1,173 @@
+mpiexec -n 4 python3 NN_MPI.py
+[+] Ingesting file: 51003h2010.txt
+Finished ingesting information:
+[+] P0 Ingesting evaluation data: 
+[+] Ingesting file: 51003h1991.txt
+Finished ingesting information:
+[+] P0 Instantiating NN learning_rate = 0.005 decay = 0.01
+[+] P0 Building layers: 
+[+] P0 training: 
+epoch: 1000
+Results for process 0 of 4 on kali for epoch 1000
+P 0 training, acc: 0.958, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0004549590536851683
+epoch: 2000
+Results for process 0 of 4 on kali for epoch 2000
+P 0 training, acc: 0.995, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.00023820867079561695
+epoch: 3000
+Results for process 0 of 4 on kali for epoch 3000
+P 0 training, acc: 0.996, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.00016134236850596964
+epoch: 4000
+Results for process 0 of 4 on kali for epoch 4000
+P 0 training, acc: 0.997, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.00012198097096852891
+epoch: 5000
+Results for process 0 of 4 on kali for epoch 5000
+P 0 training, acc: 0.998, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 9.805844283192783e-05
+epoch: 6000
+Results for process 0 of 4 on kali for epoch 6000
+P 0 training, acc: 0.998, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 8.198065256599443e-05
+epoch: 7000
+Results for process 0 of 4 on kali for epoch 7000
+P 0 training, acc: 0.998, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 7.04324552753909e-05
+epoch: 8000
+Results for process 0 of 4 on kali for epoch 8000
+P 0 training, acc: 0.998, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 6.173601679219657e-05
+epoch: 9000
+Results for process 0 of 4 on kali for epoch 9000
+P 0 training, acc: 0.998, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 5.495109352676119e-05
+epoch: 10000
+Results for process 0 of 4 on kali for epoch 10000
+P 0 training, acc: 0.999, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 4.9509852460639665e-05
+============================================================================
+Validation results for process 0 of 4 on kali
+P 0 validation, acc: 0.997, loss: 0.000
+============================================================================
+P:0 Execution time in seconds: 1455.5290491580963
+[+] Ingesting file: 51003h2011.txt
+Finished ingesting information:
+[+] P1 Ingesting evaluation data: 
+[+] Ingesting file: 51003h1991.txt
+Finished ingesting information:
+[+] P1 Instantiating NN learning_rate = 0.09 decay = 0.02
+[+] P1 Building layers: 
+[+] P1 training: 
+epoch: 1000
+Results for process 1 of 4 on kali for epoch 1000
+P 1 training, acc: 0.007, loss: 0.573 (data_loss: 0.573, reg_loss: 0.000), lr: 0.004289799809342231
+epoch: 2000
+Results for process 1 of 4 on kali for epoch 2000
+P 1 training, acc: 0.007, loss: 0.573 (data_loss: 0.573, reg_loss: 0.000), lr: 0.0021961932650073203
+epoch: 3000
+Results for process 1 of 4 on kali for epoch 3000
+P 1 training, acc: 0.007, loss: 0.573 (data_loss: 0.573, reg_loss: 0.000), lr: 0.001475893735651033
+epoch: 4000
+Results for process 1 of 4 on kali for epoch 4000
+P 1 training, acc: 0.007, loss: 0.573 (data_loss: 0.573, reg_loss: 0.000), lr: 0.0011113855272906889
+epoch: 5000
+Results for process 1 of 4 on kali for epoch 5000
+P 1 training, acc: 0.007, loss: 0.573 (data_loss: 0.573, reg_loss: 0.000), lr: 0.00089126559714795
+epoch: 6000
+Results for process 1 of 4 on kali for epoch 6000
+P 1 training, acc: 0.007, loss: 0.573 (data_loss: 0.573, reg_loss: 0.000), lr: 0.0007439246156389485
+epoch: 7000
+Results for process 1 of 4 on kali for epoch 7000
+P 1 training, acc: 0.007, loss: 0.573 (data_loss: 0.573, reg_loss: 0.000), lr: 0.0006383884238899134
+epoch: 8000
+Results for process 1 of 4 on kali for epoch 8000
+P 1 training, acc: 0.007, loss: 0.573 (data_loss: 0.573, reg_loss: 0.000), lr: 0.0005590756615728663
+epoch: 9000
+Results for process 1 of 4 on kali for epoch 9000
+P 1 training, acc: 0.007, loss: 0.573 (data_loss: 0.573, reg_loss: 0.000), lr: 0.0004972925185103326
+epoch: 10000
+Results for process 1 of 4 on kali for epoch 10000
+P 1 training, acc: 0.007, loss: 0.573 (data_loss: 0.573, reg_loss: 0.000), lr: 0.0004478057518161011
+============================================================================
+Validation results for process 1 of 4 on kali
+P 1 validation, acc: 0.000, loss: 0.580
+============================================================================
+P:1 Execution time in seconds: 1560.9776475429535
+[+] Ingesting file: 51003h2013.txt
+Finished ingesting information:
+[+] P3 Ingesting evaluation data: 
+[+] Ingesting file: 51003h1991.txt
+Finished ingesting information:
+[+] P3 Instantiating NN learning_rate = 0.0009 decay = 1e-06
+[+] P3 Building layers: 
+[+] P3 training: 
+epoch: 1000
+Results for process 3 of 4 on kali for epoch 1000
+P 3 training, acc: 0.998, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0008991017973044929
+epoch: 2000
+Results for process 3 of 4 on kali for epoch 2000
+P 3 training, acc: 0.872, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0008982044892260371
+epoch: 3000
+Results for process 3 of 4 on kali for epoch 3000
+P 3 training, acc: 0.995, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0008973089703977771
+epoch: 4000
+Results for process 3 of 4 on kali for epoch 4000
+P 3 training, acc: 0.974, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.000896415235473342
+epoch: 5000
+Results for process 3 of 4 on kali for epoch 5000
+P 3 training, acc: 0.000, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0008955232791276409
+epoch: 6000
+Results for process 3 of 4 on kali for epoch 6000
+P 3 training, acc: 1.000, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0008946330960567555
+epoch: 7000
+Results for process 3 of 4 on kali for epoch 7000
+P 3 training, acc: 0.999, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0008937446809778361
+epoch: 8000
+Results for process 3 of 4 on kali for epoch 8000
+P 3 training, acc: 0.999, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0008928580286289965
+epoch: 9000
+Results for process 3 of 4 on kali for epoch 9000
+P 3 training, acc: 0.999, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0008919731337692109
+epoch: 10000
+Results for process 3 of 4 on kali for epoch 10000
+P 3 training, acc: 0.936, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0008910899911782089
+============================================================================
+Validation results for process 3 of 4 on kali
+P 3 validation, acc: 0.904, loss: 0.000
+============================================================================
+P:3 Execution time in seconds: 1621.0292987823486
+[+] Ingesting file: 51003h2012.txt
+Finished ingesting information:
+[+] P2 Ingesting evaluation data: 
+[+] Ingesting file: 51003h1991.txt
+Finished ingesting information:
+[+] P2 Instantiating NN learning_rate = 0.001 decay = 1e-05
+[+] P2 Building layers: 
+[+] P2 training: 
+epoch: 1000
+Results for process 2 of 4 on kali for epoch 1000
+P 2 training, acc: 0.956, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0009901088129585442
+epoch: 2000
+Results for process 2 of 4 on kali for epoch 2000
+P 2 training, acc: 0.997, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0009804017686447907
+epoch: 3000
+Results for process 2 of 4 on kali for epoch 3000
+P 2 training, acc: 0.992, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0009708832124583735
+epoch: 4000
+Results for process 2 of 4 on kali for epoch 4000
+P 2 training, acc: 0.988, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0009615477071894923
+epoch: 5000
+Results for process 2 of 4 on kali for epoch 5000
+P 2 training, acc: 0.000, loss: 0.001 (data_loss: 0.001, reg_loss: 0.000), lr: 0.0009523900227621216
+epoch: 6000
+Results for process 2 of 4 on kali for epoch 6000
+P 2 training, acc: 0.897, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0009434051264634572
+epoch: 7000
+Results for process 2 of 4 on kali for epoch 7000
+P 2 training, acc: 0.999, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0009345881737212497
+epoch: 8000
+Results for process 2 of 4 on kali for epoch 8000
+P 2 training, acc: 1.000, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.000925934499393513
+epoch: 9000
+Results for process 2 of 4 on kali for epoch 9000
+P 2 training, acc: 0.001, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0009174396095377022
+epoch: 10000
+Results for process 2 of 4 on kali for epoch 10000
+P 2 training, acc: 0.000, loss: 0.000 (data_loss: 0.000, reg_loss: 0.000), lr: 0.0009090991736288512
+============================================================================
+Validation results for process 2 of 4 on kali
+P 2 validation, acc: 0.069, loss: 0.000
+============================================================================
+P:2 Execution time in seconds: 1622.1066641807556
