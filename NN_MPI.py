@@ -1186,8 +1186,9 @@ if __name__ == "__main__":
     print(f'[+] P{rank} training: ')
     # Train the model
     model.MPI_init(rank=rank, world=size, name=name)
-    model.train(X, y, epochs=10000, print_every=1000)
+    model.train(X, y, epochs=5000, print_every=1000)
     model.evaluate(X_test, y_test)
 
     executionTime = (time.time() - startTime)
     print(f'P:{rank} Execution time in seconds: ' + str(executionTime))
+

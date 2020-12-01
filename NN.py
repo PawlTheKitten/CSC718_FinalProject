@@ -1183,7 +1183,7 @@ def WVHT_NN():
 
     print('[+] Begin training: ')
     # Train the model
-    model.train(X, y, epochs=10000, print_every=1000)
+    model.train(X, y, epochs=5000, print_every=1000)
     model.evaluate(X_test, y_test)
 
 if __name__ == "__main__": 
